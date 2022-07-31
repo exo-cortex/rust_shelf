@@ -1,4 +1,5 @@
 
+#[allow(dead_code)]
 #[derive(Debug, Copy, Clone)]
 pub enum DrillSide {
     Front(f64, f64),
@@ -9,6 +10,7 @@ pub enum DrillSide {
     Bottom(f64),
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum HoleUsage {
     Normal, // normal hole
@@ -23,6 +25,7 @@ pub struct Hole {
     pub usage: Option<HoleUsage>,
 }
 
+#[allow(dead_code)]
 pub struct Board {
     pub width: f64,
     pub height: f64,
@@ -30,6 +33,7 @@ pub struct Board {
     pub holes: Vec<Hole>,
 }
 
+#[allow(dead_code)]
 impl Board {
     pub fn new(width: f64, height: f64, thickness: f64) -> Self {
         Board {
@@ -40,8 +44,8 @@ impl Board {
         }
     }
 
-    pub fn drill(&mut self, mut position: DrillSide, diameter: f64, depth: f64) {
-        let mut actual_position = DrillSide::Front(0.0, 0.0);
+    pub fn drill(&mut self, position: DrillSide, diameter: f64, depth: f64) {
+        let actual_position: DrillSide;
         match position {
             DrillSide::Front(mut x, mut y) => {
                 wrap(&mut x, &self.width);
@@ -69,16 +73,9 @@ impl Board {
                 wrap(&mut x, &self.width);
                 actual_position = DrillSide::Bottom(x);
             }
-        };  
-        let temp = Hole {
-            position: actual_position,
-            diameter: diameter,
-            drill_depth: depth,
-            usage: None,
         };
-        println!("{:?}", temp);
         self.holes.push(Hole {
-            position: position,
+            position: actual_position,
             diameter: diameter,
             drill_depth: depth,
             usage: None,

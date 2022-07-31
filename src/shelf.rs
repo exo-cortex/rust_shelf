@@ -1,3 +1,6 @@
+use crate::board;
+
+#[allow(dead_code)]
 struct Compartment {
     height: f64,
     width: f64,
@@ -5,6 +8,7 @@ struct Compartment {
     backwall: Option<f64>,
 }
 
+#[allow(dead_code)]
 impl Compartment {
     pub fn new(height: f64, width: f64, depth: f64, backwall: Option<f64>) -> Self {
         Compartment {
@@ -26,8 +30,12 @@ pub struct Shelf {
     compartments: Vec<Vec<Compartment>>,
     level_heights: Vec<f64>,
     compartment_widths: Vec<Vec<f64>>,
+    horizontal_main_boards: Vec<board::Board>,
+    horizontal_extension_boards: Vec<board::Board>,
+    vertical_boards: Vec<board::Board>,
 }
 
+#[allow(dead_code)]
 impl Shelf {
     pub fn new(
         height: f64,
@@ -45,10 +53,14 @@ impl Shelf {
             compartments: Vec::new(),
             level_heights: Vec::new(),
             compartment_widths: Vec::new(),
+            horizontal_main_boards: Vec::new(),
+            horizontal_extension_boards: Vec::new(),
+            vertical_boards: Vec::new(),
         }
     }
 
-    // pub fn add_level(&mut self, height: f64) {}
-    // pub fn add_level_with_compartments(&mut self, widths: &[f64]) {}
-    // pub fn add_compartments_at_level(&mut self, at_level: usize, widths: &[f64]) {}
+    pub fn add_level(&mut self, height: f64) {}
+    pub fn add_level_with_compartments(&mut self, widths: &[f64]) {}
+    pub fn add_compartments_at_level(&mut self, at_level: usize, widths: &[f64]) {}
+    // pub fn 
 }
