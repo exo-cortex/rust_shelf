@@ -1,4 +1,3 @@
-
 #[allow(dead_code)]
 #[derive(Debug, Copy, Clone)]
 pub enum DrillSide {
@@ -12,9 +11,9 @@ pub enum DrillSide {
 
 #[allow(dead_code)]
 #[derive(Debug)]
-pub enum HoleUsage {
+pub enum HolePurpose {
     Normal, // normal hole
-    Sink, // countersink for screwhead
+    Sink,   // countersink for screwhead
 }
 
 #[derive(Debug)]
@@ -22,7 +21,7 @@ pub struct Hole {
     pub position: DrillSide,
     pub diameter: f64,
     pub drill_depth: f64,
-    pub usage: Option<HoleUsage>,
+    pub usage: Option<HolePurpose>,
 }
 
 #[allow(dead_code)]
@@ -80,7 +79,6 @@ impl Board {
             drill_depth: depth,
             usage: None,
         })
-
     }
 }
 
