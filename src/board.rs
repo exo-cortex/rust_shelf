@@ -46,31 +46,43 @@ impl Board {
     pub fn drill(&mut self, position: DrillSide, diameter: f64, depth: f64) {
         let actual_position: DrillSide;
         match position {
-            DrillSide::Front(mut x, mut y) => {
-                wrap(&mut x, &self.width);
-                wrap(&mut y, &self.height);
-                actual_position = DrillSide::Front(x, y);
+            DrillSide::Front(x, y) => {
+                let actual_x = if x < 0.0 { x + &self.width } else { x };
+                let actual_y = if y < 0.0 { y + &self.height } else { y };
+                actual_position = DrillSide::Front(actual_x, actual_y);
             }
-            DrillSide::Back(mut x, mut y) => {
-                wrap(&mut x, &self.width);
-                wrap(&mut y, &self.height);
-                actual_position = DrillSide::Back(x, y);
+            DrillSide::Back(x, y) => {
+                let actual_x = if x < 0.0 { x + &self.width } else { x };
+                let actual_y = if y < 0.0 { y + &self.height } else { y };
+                actual_position = DrillSide::Back(actual_x, actual_y);
             }
-            DrillSide::Left(mut y) => {
-                wrap(&mut y, &self.height);
-                actual_position = DrillSide::Left(y);
+            DrillSide::Left(y) => {
+                actual_position = if y < 0.0 {
+                    DrillSide::Left(y + &self.height)
+                } else {
+                    DrillSide::Left(y)
+                };
             }
-            DrillSide::Right(mut y) => {
-                wrap(&mut y, &self.height);
-                actual_position = DrillSide::Right(y);
+            DrillSide::Right(y) => {
+                actual_position = if y < 0.0 {
+                    DrillSide::Right(y + &self.height)
+                } else {
+                    DrillSide::Right(y)
+                };
             }
-            DrillSide::Top(mut x) => {
-                wrap(&mut x, &self.width);
-                actual_position = DrillSide::Top(x);
+            DrillSide::Top(x) => {
+                actual_position = if x < 0.0 {
+                    DrillSide::Top(x + &self.width)
+                } else {
+                    DrillSide::Top(x)
+                };
             }
-            DrillSide::Bottom(mut x) => {
-                wrap(&mut x, &self.width);
-                actual_position = DrillSide::Bottom(x);
+            DrillSide::Bottom(x) => {
+                actual_position = if x < 0.0 {
+                    DrillSide::Bottom(x + &self.width)
+                } else {
+                    DrillSide::Bottom(x)
+                };
             }
         };
         self.holes.push(Hole {
@@ -80,10 +92,4 @@ impl Board {
             usage: None,
         })
     }
-}
-
-fn wrap(position: &mut f64, size: &f64) {
-    if *position < 0.0 {
-        *position += size
-    };
 }
