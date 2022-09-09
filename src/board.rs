@@ -45,15 +45,15 @@ impl Board {
 
 	pub fn drill(&mut self, position: DrillSide, diameter: f64, depth: f64) {
 		let actual_position = match position {
-			DrillSide::Front(x, y) => {
-				let actual_x = if x < 0.0 { x + &self.width } else { x };
-				let actual_y = if y < 0.0 { y + &self.height } else { y };
-				DrillSide::Front(actual_x, actual_y)
+			DrillSide::Front(mut x, mut y) => {
+				x = if x < 0.0 { x + &self.width } else { x };
+				y = if y < 0.0 { y + &self.height } else { y };
+				DrillSide::Front(x, y)
 			}
-			DrillSide::Back(x, y) => {
-				let actual_x = if x < 0.0 { x + &self.width } else { x };
-				let actual_y = if y < 0.0 { y + &self.height } else { y };
-				DrillSide::Back(actual_x, actual_y)
+			DrillSide::Back(mut x, mut y) => {
+				x = if x < 0.0 { x + &self.width } else { x };
+				y = if y < 0.0 { y + &self.height } else { y };
+				DrillSide::Back(x, y)
 			}
 			DrillSide::Left(y) => {
 				if y < 0.0 { DrillSide::Left(y + &self.height) } else { DrillSide::Left(y) }
