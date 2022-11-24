@@ -4,8 +4,8 @@ pub enum Content {
     SubShelf(f64),
     Drawer(f64),
     SlideShelf(usize, f64), // how many slide shelfs, depth
-    DoorLeft(),
-    DoorRight(),
+    DoorLeft,
+    DoorRight,
 }
 
 #[allow(dead_code)]
@@ -27,11 +27,11 @@ impl Compartment {
         content: Option<Vec<Content>>,
     ) -> Self {
         Compartment {
-            height: height,
-            width: width,
-            depth: depth,
-            backwall: backwall,
-            content: content,
+            height,
+            width,
+            depth,
+            backwall,
+            content,
         }
     }
 }
