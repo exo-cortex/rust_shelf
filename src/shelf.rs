@@ -30,17 +30,17 @@ pub struct Shelf {
 #[allow(dead_code)]
 impl Shelf {
 	pub fn new(
-		width: f64,
-		height: f64,
-		depth: f64,
+		shelf_width: f64,
+		shelf_height: f64,
+		shelf_depth: f64,
 		shelf_extra: f64,
 		board_thickness: f64,
 	) -> Self {
 		Shelf {
-			shelf_width: width,
-			shelf_height: height,
-			shelf_normal: depth,
-			shelf_extra: shelf_extra,
+			shelf_width,
+			shelf_height,
+			shelf_normal: shelf_depth,
+			shelf_extra,
 			board_thickness: board_thickness,
 			level_heights: Vec::new(),
 			compartment_widths: Vec::new(),
@@ -104,6 +104,28 @@ impl Shelf {
 		}
 		self
 	}
+
+
+	fn horizontal_extension_boards(&mut self) {
+		let mut first_board = board::Board::new(self.shelf_width, self.shelf_normal, self.board_thickness);
+		let mut intervals: Vec<Vec<(f64, f64)>> = Vec::new();
+		for (lw, ld) in self.compartment_widths.iter().zip(&self.compartment_depths) {
+			let mut x: f64 = 0.0;
+			let mut temp: Vec<(f64, f64)> = Vec::new();
+			for (cw, cd) in lw.iter().zip(ld) {
+				if cd == &Depth::Extra {
+					temp.push((x, x + cw + self.board_thickness));
+				}
+				x += cw + self.board_thickness;
+			}
+
+		}
+		
+		// self.horizontal_main_boards.push();
+	}
+	fn vertical_boards(&self) {}
+	fn extension_boards(&self) {}
+
 	pub fn randomize_depths(&mut self) -> &mut Shelf {
 		for level in &mut self.compartment_depths {
 			level.shuffle(&mut self.rng);
